@@ -13,6 +13,22 @@ class App extends Component {
     text: sampleText
   }
 
+  // Si le texte est vide, on affiche le sampleText par défaut, sinon on affiche le texte corrigé
+  componentDidMount () {
+    const text = localStorage.getItem('text')
+    if(text) {
+      this.setState({ text })     
+    } else {
+      this.setState( {text: sampleText} )
+    }
+  }
+
+  // On synchronise le state l=avec le navigateur lors d'une mise à jour
+  componentDidUpdate () {
+    const { text } = this.state
+    localStorage.setItem('text', text)
+  }
+
   // Capture l'event sur le textearea
   handleChange = event => {
     const text = event.target.value
